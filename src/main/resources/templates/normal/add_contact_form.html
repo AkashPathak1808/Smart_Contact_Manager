@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/user_base::adminLayout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Contact</title>
+</head>
+<body>
+	<section>
+		<div class="row">
+			<div class="addContact col-md-9 offset-md-2">
+				<h2 class="text-center mb-3">Add Contact</h2>
+				<form th:action="@{/user/process-contact}" method="post"
+					th:object="${contact}" enctype="multipart/form-data">
+					<div class="mb-5 row">
+						<div class="col-6 my-2">
+							<label for="first_name">First Name:</label> <input type="text"
+								class="form-control" id="first_name" name="name">
+						</div>
+						<div class="col-6 my-2">
+							<label for="last_name">Last Name</label> <input type="text"
+								class="form-control" id="last_name" name="secondName">
+						</div>
+						<div class="col-6 my-2">
+							<label for="work">Work:</label> <input type="text"
+								class="form-control" id="work" name="work">
+						</div>
+						<div class="col-6 my-2">
+							<label for="email">Email: </label> <input type="email"
+								class="form-control" id="email" name="email">
+						</div>
+						<div class="col-6 my-2">
+							<label for="phone">Contact Number: </label> <input type="number"
+								class="form-control" id="phone" name="phone">
+						</div>
+						<div class="col-6 my-2">
+							<label for="picture">Profile Picture: </label> <input type="file"
+								class="form-control" id="picture" name="image">
+						</div>
+						<div class="">
+							<label for="message">Description: </label>
+							<textarea class="form-control" id="message" name="description"
+								rows="10"></textarea>
+						</div>
+					</div>
+					<div class="d-grid">
+						<button type="submit" class="btn btn-success">Post</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+			tinymce.init({
+				selector : '#message'
+			});
+		</script>
+	</section>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/user_base::adminLayout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>User Dashboard</title>
+</head>
+<body>
+	<section>
+		<div class="row">
+			<div class="col-md-9 offset-md-2">
+				<div class="card">
+					<div class="car-body">
+						<div class="searchContact  mb-3">
+							<input onkeyup="search()" id="search-input" type="text"
+								class="form-control" placeholder="Search Your Contact" />
+							<div class="search-result"></div>
+						</div>
+						<div class="table-responsive">
+							<table class="table bg-white">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Phone</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody class="table-group-divider">
+									<tr th:each="c : ${contacts}">
+										<th scope="row" th:text="'SCM2024-'+${c.cId}"></th>
+										<td><img class="my_profile_pic"
+											th:src="@{'/img/'+${c.image}}" alt="" /> <span
+											th:text="${c.name+' '+c.secondName}"></span></td>
+										<td><a th:href="@{'/user/'+${c.cId}+'/contact'}"> <span
+												th:text="${c.email}"></span>
+										</a></td>
+										<td th:text="${c.phone}"></td>
+										<td style="display: flex"><a
+											th:href="@{'/user/delete/'+${c.cId}}"
+											class="btn btn-danger btn-sm mx-1"> <i
+												class="fa-solid fa-trash"></i>
+										</a>
+											<form th:action="@{'/user/update-contact/'+${c.cId}}"
+												method="post">
+												<button type="submit" class="btn btn-primary btn-sm mx-1">
+													<i class="fa-solid fa-pen"></i>
+												</button>
+											</form></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div
+							class="d-flex justify-content-center align-items-center bg-white w-100">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li th:if="${currentPage != 0}" class="page-item"><a
+										class="page-link"
+										th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
+
+									<li th:classappend="${currentPage==i-1?'active':''}"
+										th:each="i: ${#numbers.sequence(1,totalPages)}"
+										class="page-item"><a
+										th:href="@{'/user/show-contacts/'+${i-1}}" class="page-link"><span
+											th:text="${i}"></span></a></li>
+
+									<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+										class="page-link"
+										th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</html>
